@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaderboard | BoatLabs Wiki</title>
+    <link rel="icon" href="icon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="site">
+        <nav class="top-nav">
+            <a href="index.html">Home</a>
+            <a href="track-making.html">Track making</a>
+            <a href="minigames.html">Minigames</a>
+            <a class="active" href="leaderboard.html">Leaderboard</a>
+        </nav>
+
+        <header class="hero">
+            <div>
+                <p class="eyebrow">Games</p>
+                <h1>Minigames Leaderboard</h1>
+                <div class="hero-actions">
+                    <button id="refresh-btn" class="btn btn-primary">Refresh now</button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="section">
+                <div class="leaderboard-controls">
+                    <div class="tabs" id="leaderboard-tabs">
+                        <button class="tab active" data-type="wins">Wins</button>
+                        <button class="tab" data-type="survivalrun">Survival Run</button>
+                        <button class="tab" data-type="survivalweave">Survival Weave</button>
+                    </div>
+                </div>
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search by player name..." />
+                </div>
+                <p id="standings-message" class="page-intro">Loading…</p>
+                <div id="standings-table-wrapper"></div>
+            </section>
+        </main>
+
+        <footer>
+            BoatLabs Wiki • Leaderboard<br>
+            © 2026 <a href="https://napsternpt.github.io/">NapsterNPT</a>. All rights reserved.
+        </footer>
+    </div>
+
+    <script>
+        const API = 'https://boatlabs-api.napsternpt.workers.dev';
+        const POLL_MS = 15000;
+        const PER_PAGE = 15;
+        const SEARCH_PER_PAGE = 100;
+
+        let currentType = 'wins';
+        let pollTimer = null;
+        let currentFetchId = 0;
+
+        const refreshButton = document.getElementById('refresh-btn');
+        const standingsMessage = document.getElementById('standings-message');
+        const standingsWrapper = document.getElementById('standings-table-wrapper');
+        const tabs = document.querySelectorAll('.tab');
+        const searchInput = document.getElementById('search-input');
+
+        let allCache = { wins: null, survivalrun: null, survivalweave: null };
+
+        function formatTime(ms) {
+            if (!ms && ms !== 0) return '—';
+            const totalSec = Math.floor(ms / 1000);
+            const min = Math.floor(totalSec / 60);
+            const sec = totalSec % 60;
+            const millis = ms % 1000;
+            return `${min}:${String(sec).padStart(2, '0')}.${String(millis).padStart(3, '0')}`;
+        }
+
+        function baseUrl() {
+            if (currentType === 'wins') {
+                return `${API}/v1/leaderboard/wins?minigame=all&sort=wins_desc`;
+            }
+            return `${API}/v1/leaderboard/${currentType}?best_only=true&sort=time_desc`;
+        }
+
+        async function fetchFirstPage() {
+            const r = await fetch(`${baseUrl()}&page=1&per_page=${PER_PAGE}`);
+            if (!r.ok) throw new Error(`Request failed with ${r.status}`);
+            return r.json();
+        }
+
+        async function fetchAllPages() {
+            const first = await fetch(`${baseUrl()}&page=1&per_page=${SEARCH_PER_PAGE}`);
+            if (!first.ok) throw new Error(`Request failed with ${first.status}`);
+            const firstData = await first.json();
+            const totalPages = firstData.total_pages || 1;
+            const pages = [firstData];
+
+            if (totalPages > 1) {
+                const rest = [];
+                for (let p = 2; p <= totalPages; p++) {
+                    rest.push(fetch(`${baseUrl()}&page=${p}&per_page=${SEARCH_PER_PAGE}`).then(r => {
+                        if (!r.ok) throw new Error(`Request failed with ${r.status}`);
+                        return r.json();
+                    }));
+                }
+                const results = await Promise.all(rest);
+                pages.push(...results);
+            }
+
+            const allResults = pages.flatMap(p => p.results || []);
+            return { results: allResults, total: first.total };
+        }
+
+        function renderStandings(data) {
+            const results = Array.isArray(data?.results) ? data.results : [];
+
+            standingsWrapper.innerHTML = '';
+            standingsMessage.textContent = '';
+
+            if (!results.length) return;
+
+            const table = document.createElement('table');
+            table.className = 'standings-table';
+
+            if (currentType === 'wins') {
+                table.innerHTML = `
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Player</th>
+                            <th>Wins</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                `;
+                const tbody = table.querySelector('tbody');
+                results.forEach((entry) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>#${entry.rank ?? '-'}</td>
+                        <td>${entry.player_name || 'Unknown player'}</td>
+                        <td>${entry.wins ?? 0}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } else {
+                table.innerHTML = `
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Player</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                `;
+                const tbody = table.querySelector('tbody');
+                results.forEach((entry) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>#${entry.rank ?? '-'}</td>
+                        <td>${entry.player_name || 'Unknown player'}</td>
+                        <td>${formatTime(entry.time_ms)}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+
+            standingsWrapper.appendChild(table);
+        }
+
+        async function refreshDisplay() {
+            const query = searchInput.value.trim().toLowerCase();
+            const fetchId = ++currentFetchId;
+
+            standingsMessage.textContent = query ? 'Searching…' : 'Loading…';
+            standingsWrapper.innerHTML = '';
+
+            try {
+                let data;
+                if (!query) {
+                    const d = await fetchFirstPage();
+                    data = d;
+                } else {
+                    if (!allCache[currentType]) {
+                        allCache[currentType] = await fetchAllPages();
+                    }
+                    const full = allCache[currentType];
+                    const filtered = full.results.filter(e =>
+                        (e.player_name || '').toLowerCase().includes(query)
+                    );
+                    data = { results: filtered, total: filtered.length };
+                }
+
+                if (fetchId === currentFetchId) {
+                    renderStandings(data);
+                }
+            } catch (err) {
+                if (fetchId === currentFetchId) {
+                    standingsMessage.textContent = `Unable to load data: ${err.message}`;
+                }
+            }
+        }
+
+        function switchTab(type) {
+            currentType = type;
+            allCache[type] = null;
+            tabs.forEach(t => t.classList.toggle('active', t.dataset.type === type));
+            refreshDisplay();
+        }
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => switchTab(tab.dataset.type));
+        });
+
+        searchInput.addEventListener('input', () => {
+            refreshDisplay();
+        });
+
+        refreshButton.addEventListener('click', () => {
+            allCache[currentType] = null;
+            refreshDisplay();
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            switchTab('wins');
+            pollTimer = setInterval(refreshDisplay, POLL_MS);
+        });
+    </script>
+</body>
+
+</html>
