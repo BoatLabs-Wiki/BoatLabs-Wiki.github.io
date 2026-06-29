@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Track Making | BoatLabs Wiki</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="site">
+        <nav class="top-nav">
+            <a href="index.html">Home</a>
+            <a class="active" href="track-making.html">Track making</a>
+            <a href="minigames.html">Minigames</a>
+        </nav>
+
+        <aside class="sidebar-right">
+            <h3>Sections</h3>
+            <ul>
+                <li><a href="#preparation">Preparation</a></li>
+                <li><a href="#setting-up">Setting up a track</a></li>
+                <li><a href="#regions">Creating regions</a></li>
+                <li><a href="#locations">Track locations</a></li>
+                <li><a href="#settings">Track settings</a></li>
+                <li><a href="#boatutils">OpenBoatUtils</a></li>
+            </ul>
+        </aside>
+
+        <header>
+            <div class="section-title">
+                <p class="eyebrow">Guides</p>
+                <h1>Track making</h1>
+            </div>
+        </header>
+
+
+        <main>
+            <section class="section">
+                <h2 id="preparation">Prepareation</h2>
+                <p>Before doing any of the track setup, run <code>/server build</code> and then <code>/p auto</code>.
+                </p>
+                <p>Once you are done building, you can start setting up your track.</p>
+            </section>
+
+            <section class="section">
+                <h2 id="setting-up">Setting up a track</h2>
+                <p>To create a track, use the track create command. In this guide, <code>/te</code> are used as
+                    shortcuts for <code>/trackedit</code>.</p>
+                <pre><code>/te create &lt;track_name&gt;</code></pre>
+                <p>When you run this command, your current position and rotation become the track spawn, and the item
+                    you are holding becomes the TT menu item. If you are not holding an item, a default one is given.
+                </p>
+                <p>To edit a track later, select it with <code>/te select &lt;track_name&gt;</code>. To check the
+                    currently
+                    selected track, use <code>/te</code>.</p>
+            </section>
+
+            <section class="section">
+                <h2 id="regions">Creating regions</h2>
+                <p>After creating a track, start adding regions. Tracks in TimingSystem are built from different region
+                    types, and mistakes can lead to a poor driving experience. A usable track needs at least one start
+                    region and one checkpoint.</p>
+
+                <h3>Making a selection</h3>
+                <p>Use WorldEdit selections to define regions. Run <code>//wand</code> and select a cuboid region with
+                    left/right clicks. Poly selections are also supported.</p>
+                <p><strong>Make sure your selection is always one block deep into the ground and at least one block
+                        above the ground.</strong> If you are planning on having boat step-ups with BoatUtils, create
+                    regions several blocks into the air.</p>
+                <p><strong>Small regions may be passed before the server recognizes a player entry, so make them large
+                        enough, especially on high-speed straights.</strong></p>
+                <p>Example: a region selection should be wide enough to safely register entry and exit.</p>
+
+                <h3>Regions</h3>
+                <p>Regions use an optional <code>&lt;index&gt;</code> argument, allowing multiple regions of the same
+                    type.
+                    Add a <code>-</code> before the index to remove a region (for example, <code>-2</code> or
+                    <code>-all</code>).
+                </p>
+                <p>Use <code>/te view &lt;track_name&gt;</code> to enable particles and visualize regions. Use
+                    <code>/te regions</code> to list them, and click the region name to teleport to its saved spawn.
+                </p>
+
+                <h3>Start Region</h3>
+                <p>A start region defines where a player's timer should start. If no end region is defined, it also ends
+                    the player's time.</p>
+                <pre><code>/te region start &lt;index&gt;</code></pre>
+
+                <h3>Checkpoint Region</h3>
+                <p>Players must pass all checkpoints before finishing. Checkpoints prevent skipping parts of the track
+                    and are used to calculate race time deltas.</p>
+                <pre><code>/te region checkpoint &lt;index&gt;</code></pre>
+
+                <h3>End Region</h3>
+                <p>An end region finishes a player's time.</p>
+                <pre><code>/te region end &lt;index&gt;</code></pre>
+                <p><strong>If the track is a circuit, do not set an end region.</strong></p>
+
+                <h3>Pit Region</h3>
+                <pre><code>/te region pit &lt;index&gt;</code></pre>
+
+                <h3>Inpit Region</h3>
+                <pre><code>/te region inpit &lt;index&gt;</code></pre>
+
+                <h3>Reset Region</h3>
+                <p>A reset region teleports a player to the last checkpoint or the spawn location during a time trial.
+                </p>
+                <pre><code>/te region reset &lt;index&gt;</code></pre>
+            </section>
+
+            <section class="section">
+                <h2 id="locations">Track locations</h2>
+                <p>Track locations take the current position and rotation. They are visualized with particles when
+                    <code>/te view</code> is active.
+                </p>
+                <p>Use <code>/te locations</code> to list all locations and teleport to them.</p>
+
+                <h3>Track Spawn</h3>
+                <pre><code>/te spawn</code></pre>
+
+                <h3>Leaderboard</h3>
+                <pre><code>/te location leaderboard &lt;index&gt;</code></pre>
+
+                <h3>Grid</h3>
+                <pre><code>/te location grid &lt;index&gt;</code></pre>
+
+                <h3>Qualification Grid</h3>
+                <pre><code>/te location qualygrid &lt;index&gt;</code></pre>
+            </section>
+
+            <section class="section">
+                <h2 id="settings">Track settings</h2>
+                <h3>Track Name</h3>
+                <pre><code>/te name [NEWNAME]</code></pre>
+
+                <h3>Track Owner</h3>
+                <pre><code>/te owner [PLAYER]</code></pre>
+
+                <h3>Track Contributors</h3>
+                <pre><code>/te contributors [PLAYER] [PLAYER] [PLAYER]</code></pre>
+
+                <h3>Track Open/Close</h3>
+                <p>Open tracks allow anyone to use them; closed tracks are limited to admins.</p>
+                <pre><code>/te open</code></pre>
+                <pre><code>/te close</code></pre>
+
+                <h3>Time Trial</h3>
+                <pre><code>/te timetrial [enable|disable]</code></pre>
+                <p>Default value: <strong>enable</strong>.</p>
+            </section>
+
+            <section class="section">
+                <h2 id="boatutils">OpenBoatUtils</h2>
+                <p>A track can be assigned custom OpenBoatUtils settings. If the driver has the OpenBoatUtils mod, they
+                    receive a new mode set by the track. Use <code>/te boatutils [argument]</code>.</p>
+                <pre><code>/te boatutils</code></pre>
+                <pre><code>/te boatutils add/remove [group/setting]</code></pre>
+                <pre><code>/te boatutils reset</code></pre>
+
+                <h3>Boatutils modifications</h3>
+                <p>Settings include acceleration, air control, step height, gravity, jump force, and more. Groups such
+                    as <code>air_stepping</code>, <code>blue_speed</code>, <code>parkour</code>, <code>rally</code>, and
+                    <code>step_up</code> can also be added.
+                </p>
+            </section>
+        </main>
+
+        <footer>
+            BoatLabs Wiki • Track making<br>
+            © 2026 <a href="https://napsternpt.github.io/">NapsterNPT</a>. All rights reserved.
+        </footer>
+    </div>
+</body>
+
+</html>
