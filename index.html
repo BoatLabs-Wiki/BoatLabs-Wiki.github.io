@@ -22,6 +22,11 @@
             <div>
                 <p class="eyebrow">Minecraft ice boat racing</p>
                 <h1>BoatLabs Wiki</h1>
+                <div class="hero-actions">
+                    <button type="button" class="btn btn-primary" id="copy-ip-btn">mc.boatlabs.net</button>
+                    <a href="https://boatlabs.net/" class="btn btn-secondary" target="_blank"
+                        rel="noopener noreferrer">Open main site</a>
+                </div>
             </div>
         </header>
 
@@ -48,6 +53,27 @@
             © 2026 <a href="https://napsternpt.github.io/">NapsterNPT</a>. All rights reserved.
         </footer>
     </div>
+
+    <script>
+        const copyIpBtn = document.getElementById('copy-ip-btn');
+
+        if (copyIpBtn) {
+            copyIpBtn.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText('mc.boatlabs.net');
+                    copyIpBtn.textContent = 'IP copied!';
+                    setTimeout(() => {
+                        copyIpBtn.textContent = 'Copy server IP';
+                    }, 1800);
+                } catch (error) {
+                    copyIpBtn.textContent = 'Copy failed';
+                    setTimeout(() => {
+                        copyIpBtn.textContent = 'Copy server IP';
+                    }, 1800);
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
