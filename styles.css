@@ -150,7 +150,7 @@ body {
     margin-bottom: 10px;
 }
 
-.section h2 {
+.collapsible .section h2 {
     cursor: pointer;
     user-select: none;
     display: flex;
@@ -160,7 +160,7 @@ body {
     margin-bottom: 0;
 }
 
-.section h2::after {
+.collapsible .section h2::after {
     content: "\25BE";
     color: var(--accent);
     font-weight: 600;
@@ -169,22 +169,48 @@ body {
     transition: transform 0.35s ease;
 }
 
-.section:not(.collapsed) h2::after {
+.collapsible .section:not(.collapsed) h2::after {
     transform: rotate(180deg);
 }
 
-.section-content {
+.collapsible .section-content {
     display: grid;
     grid-template-rows: 1fr;
     transition: grid-template-rows 0.35s ease;
 }
 
-.section-content-inner {
+.collapsible .section-content-inner {
     overflow: hidden;
     min-height: 0;
 }
 
-.section.collapsed .section-content {
+.collapsible .section.collapsed .section-content {
+    grid-template-rows: 0fr;
+}
+
+.collapsible .section h3.collapsible-sub {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.collapsible .section h3.collapsible-sub::after {
+    content: "\25BE";
+    color: var(--accent);
+    font-weight: 600;
+    flex-shrink: 0;
+    display: inline-block;
+    transition: transform 0.35s ease;
+}
+
+.collapsible .section h3.collapsible-sub:not(.collapsed)::after {
+    transform: rotate(180deg);
+}
+
+.collapsible .section h3.collapsible-sub.collapsed + .section-content {
     grid-template-rows: 0fr;
 }
 
@@ -211,12 +237,12 @@ code {
     color: var(--muted);
 }
 
-.section a {
+.section a:not(.btn) {
     color: var(--accent);
     text-decoration: none;
 }
 
-.section a:hover {
+.section a:not(.btn):hover {
     text-decoration: underline;
 }
 
@@ -369,6 +395,25 @@ footer a:hover {
 
 .standings-table tbody tr:hover {
     background: rgba(255,255,255,0.03);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+}
+
+.data-table th {
+    color: var(--accent);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
 }
 
 @media (max-width: 900px) {

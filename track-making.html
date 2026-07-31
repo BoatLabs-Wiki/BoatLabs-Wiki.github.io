@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="styles.css" />
 </head>
 
-<body>
+<body class="collapsible">
     <div class="site">
         <nav class="top-nav">
             <a href="index.html">Home</a>
@@ -22,13 +22,13 @@
             <h3>Sections</h3>
             <ul>
                 <li><a href="#preparation">Preparation</a></li>
+                <li><a href="#download-schematic">Downloading a schematic</a></li>
+                <li><a href="#upload-schematic">Uploading a schematic</a></li>
                 <li><a href="#setting-up">Setting up a track</a></li>
                 <li><a href="#regions">Creating regions</a></li>
                 <li><a href="#locations">Track locations</a></li>
                 <li><a href="#settings">Track settings</a></li>
                 <li><a href="#boatutils">OpenBoatUtils</a></li>
-                <li><a href="#download-schematic">Downloading a schematic</a></li>
-                <li><a href="#upload-schematic">Uploading a schematic</a></li>
             </ul>
         </aside>
 
@@ -184,19 +184,270 @@
                 <p>A track can be assigned custom OpenBoatUtils settings. That can be standalone settings of groups,
                     which are a group of settings.</p>
                 <p>You can assign custom OpenBoatUtils settings/groups to a track using the following commands:</p>
-                <pre><code>/te boatutils add group|setting &lt;name&gt;</code></pre>
-                <p>To remove a settings/groups from a track using the following commands:</p>
+                <pre><code>/te boatutils add setting|group &lt;name&gt;</code></pre>
+                <p>To remove a setting|group from a track using the following commands:</p>
                 <pre><code>/te boatutils remove &lt;index&gt;</code></pre>
-                <p>The index can be found using the <code>/t boatutils &lt;track_name&gt;</code> command. (This can also be run on main server)</p>
+                <p>The index can be found using the <code>/t boatutils &lt;track_name&gt;</code> command. (This can also
+                    be run on main server)</p>
                 <p>And to reset the settings:</p>
                 <pre><code>/te boatutils reset</code></pre>
 
-                <h3>BoatUtils modifications</h3>
-                <p>Settings include acceleration, air control, step height, gravity, jump force, and more. Groups such
-                    as <code>air_stepping</code>, <code>blue_speed</code>, <code>parkour</code>, <code>rally</code>,
-                    <code>step_up</code>.
-                </p>
-                <p>Also, remember that some settings may require other settings to be functional. For example, the setting <code>jumps</code> will require <code>jump_force</code> to work. That doesnt apply for groups.</p>
+                <h3 class="collapsible-sub">Groups</h3>
+                <p>Pre-made groups of settings that can be added to a track in one go.</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Group</th>
+                            <th>Setting</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="6"><code>air_stepping</code></td>
+                            <td><code>fall_damage</code></td>
+                            <td>false</td>
+                        </tr>
+                        <tr>
+                            <td><code>air_control</code></td>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <td><code>block_slipperiness</code></td>
+                            <td>air: 0.98</td>
+                        </tr>
+                        <tr>
+                            <td><code>step_height</code></td>
+                            <td>1.25</td>
+                        </tr>
+                        <tr>
+                            <td><code>water_elevation</code></td>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <td><code>air_stepping</code></td>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <td><code>blue_speed</code></td>
+                            <td><code>default_slipperiness</code></td>
+                            <td>0.989</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2"><code>blue_speed_air</code></td>
+                            <td><code>air_control</code></td>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <td><code>block_slipperiness</code></td>
+                            <td>air: 0.989</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="5"><code>parkour</code></td>
+                            <td><code>fall_damage</code></td>
+                            <td>false</td>
+                        </tr>
+                        <tr>
+                            <td><code>air_control</code></td>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <td><code>default_slipperiness</code></td>
+                            <td>0.98</td>
+                        </tr>
+                        <tr>
+                            <td><code>jump_force</code></td>
+                            <td>0.36</td>
+                        </tr>
+                        <tr>
+                            <td><code>step_height</code></td>
+                            <td>0.5</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="4"><code>rally</code></td>
+                            <td><code>fall_damage</code></td>
+                            <td>false</td>
+                        </tr>
+                        <tr>
+                            <td><code>air_control</code></td>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <td><code>default_slipperiness</code></td>
+                            <td>0.98</td>
+                        </tr>
+                        <tr>
+                            <td><code>step_height</code></td>
+                            <td>1.25</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="5"><code>step_up</code></td>
+                            <td><code>fall_damage</code></td>
+                            <td>false</td>
+                        </tr>
+                        <tr>
+                            <td><code>air_control</code></td>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <td><code>block_slipperiness</code></td>
+                            <td>air: 0.98</td>
+                        </tr>
+                        <tr>
+                            <td><code>step_height</code></td>
+                            <td>1.25</td>
+                        </tr>
+                        <tr>
+                            <td><code>water_elevation</code></td>
+                            <td>true</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="collapsible-sub">Settings</h3>
+                <p>Individual settings that can be added to a track one at a time.</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Setting</th>
+                            <th>Value type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>acceleration_stacking</code></td>
+                            <td><code>toggle</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>air_control</code></td>
+                            <td><code>toggle</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>air_stepping</code></td>
+                            <td><code>toggle</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>backward_acceleration</code></td>
+                            <td><code>number</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>block_setting</code></td>
+                            <td><code>per-block setting</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>block_slipperiness</code></td>
+                            <td><code>block, number</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>brake_slipperiness</code></td>
+                            <td><code>number</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>collision_resolution</code></td>
+                            <td><code>number</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>collisionmode</code></td>
+                            <td><code>type of collision (listed on auto-complete)</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>coyotetime</code></td>
+                            <td><code>number</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>default_slipperiness</code></td>
+                            <td><code>number</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>fall_damage</code></td>
+                            <td><code>toggle</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>fix_number_water_elevation</code></td>
+                            <td><code>toggle</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>forward_acceleration</code></td>
+                            <td><code>number</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>gravity</code></td>
+                            <td><code>number</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>honey_compatibility</code></td>
+                            <td><code>toggle</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>jump_force</code></td>
+                            <td><code>number</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>jumps</code></td>
+                            <td><code>number|infinite</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>lateral_slipperiness</code></td>
+                            <td><code>number</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>max_speed</code></td>
+                            <td><code>number</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>max_speed_resistance</code></td>
+                            <td><code>number</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>multi_stepping</code></td>
+                            <td><code>toggle</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>scale</code></td>
+                            <td><code>number</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>step_height</code></td>
+                            <td><code>number</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>step_up_slipperiness</code></td>
+                            <td><code>number</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>surface_water_control</code></td>
+                            <td><code>toggle</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>swim_force</code></td>
+                            <td><code>number</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>turning_forward_acceleration</code></td>
+                            <td><code>number</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>underwater_control</code></td>
+                            <td><code>toggle</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>walltap_multiplier</code></td>
+                            <td><code>number</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>water_elevation</code></td>
+                            <td><code>toggle</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>water_jumping</code></td>
+                            <td><code>toggle</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>yaw_acceleration</code></td>
+                            <td><code>number</code></td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
         </main>
 
@@ -223,6 +474,24 @@
 
             section.classList.add('collapsed');
             title.addEventListener('click', () => section.classList.toggle('collapsed'));
+
+            inner.querySelectorAll('h3.collapsible-sub').forEach((subTitle) => {
+                const subInner = document.createElement('div');
+                subInner.className = 'section-content-inner';
+                let node = subTitle.nextElementSibling;
+                while (node && node.tagName !== 'H3') {
+                    const next = node.nextElementSibling;
+                    subInner.appendChild(node);
+                    node = next;
+                }
+                const subWrap = document.createElement('div');
+                subWrap.className = 'section-content collapsed';
+                subWrap.appendChild(subInner);
+                subTitle.after(subWrap);
+
+                subTitle.classList.add('collapsed');
+                subTitle.addEventListener('click', () => subTitle.classList.toggle('collapsed'));
+            });
         });
 
         const expandFromHash = () => {
