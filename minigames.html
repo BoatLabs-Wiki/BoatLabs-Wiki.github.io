@@ -22,6 +22,8 @@
             <h3>Games</h3>
             <ul>
                 <li><a href="#concrete-io">Concrete IO</a></li>
+                <li><a href="#curling">Curling</a></li>
+                <li><a href="#glass-bridge">Glass Bridge</a></li>
                 <li><a href="#guess-the-track">Guess The Track</a></li>
                 <li><a href="#musical-chairs">Musical Chairs</a></li>
                 <li><a href="#snake">Snake</a></li>
@@ -33,7 +35,7 @@
             </ul>
         </aside>
 
-        <header>
+        <header>section collapsed
             <div class="section-title">
                 <p class="eyebrow">Games</p>
                 <h1>Minigames</h1>
@@ -54,6 +56,37 @@
                         an older part crashes you. Stay off the arena walls.</li>
                     <li>Biggest territory when the clock hits zero wins, and survivors always beat anyone who got
                         eliminated. Keep claiming!</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2 id="curling">Curling</h2>
+                <ul class="game-rules">
+                    <li>Spawn on the ice ring and keep moving — fall off and you're out!</li>
+                    <li>The gap to the target fills with blue ice. Drive across it toward the bullseye.</li>
+                    <li>When the ice turns solid you lose steering — you can only glide! Aim before it freezes.</li>
+                    <li>The platform breaks away from the outside in. Only players on the target survive.</li>
+                    <li>Last boat standing wins. The ring grows every round!</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2 id="glass-bridge">Glass Bridge</h2>
+                <ul class="game-rules">
+                    <li>Hop your boat across the bridge — one panel of each pair is safe, the other SHATTERS and drops
+                        you into the void.</li>
+                    <li>Press SPACE to jump the 4-block gaps. Keep your speed up so you carry across.</li>
+                    <li>You can only jump off the YELLOW concrete strips — you can't jump while on ice, so time your
+                        leap
+                        from the concrete edge.</li>
+                    <li>Broken panels stay broken for everyone — watch who falls, then follow the safe path they reveal.
+                    </li>
+                    <li>Fall off and you respawn back at the start (the clock keeps ticking) — no eliminations, just
+                        lost
+                        time.</li>
+                    <li>First to cross wins; once they do, everyone else has a few seconds to make it before the round
+                        ends.</li>
+                    <li>Inventor and builder: Tiptuppizza</li>
                 </ul>
             </section>
 
@@ -116,10 +149,12 @@
                 <h2 id="wall-bounce">Wall Bounce</h2>
                 <ul class="game-rules">
                     <li>Race down the runway and hit the side ramps to launch at the slime wall!</li>
-                    <li>Smack the wall to bounce back — the slime you hit gets knocked out.</li>
-                    <li>Bounce hard enough to clear the line in the pool below to score a point. Drop straight in
+                    <li>Smack the wall to bounce back — every slime your boat covers gets knocked out.</li>
+                    <li>You only bank points if you bounce back over the line in the pool below. Drop straight in
                         without bouncing and you get nothing.</li>
-                    <li>Knock out slime next to an existing hole when you score for bonus points!</li>
+                    <li>Each slime is worth more the more holes already around it — from 1 point up to 8 for one ringed
+                        by holes. Chip the edges of old holes for big scores!</li>
+                    <li>Bounce hard enough to land back on the platform for a bonus point.</li>
                     <li>Most points when the timer runs out wins!</li>
                 </ul>
             </section>
@@ -130,6 +165,37 @@
             © 2026 <a href="https://napsternpt.github.io/">NapsterNPT</a>. All rights reserved.
         </footer>
     </div>
+
+    <script>
+        document.querySelectorAll('section.section').forEach((section) => {
+            const title = section.querySelector('h2');
+            if (!title) return;
+
+            const inner = document.createElement('div');
+            inner.className = 'section-content-inner';
+            while (title.nextElementSibling) {
+                inner.appendChild(title.nextElementSibling);
+            }
+            const wrap = document.createElement('div');
+            wrap.className = 'section-content';
+            wrap.appendChild(inner);
+            section.appendChild(wrap);
+
+            section.classList.add('collapsed');
+            title.addEventListener('click', () => section.classList.toggle('collapsed'));
+        });
+
+        const expandFromHash = () => {
+            const id = window.location.hash.slice(1);
+            if (!id) return;
+            const title = document.getElementById(id);
+            if (title && title.tagName === 'H2') {
+                title.closest('section.section').classList.remove('collapsed');
+            }
+        };
+        window.addEventListener('hashchange', expandFromHash);
+        expandFromHash();
+    </script>
 </body>
 
 </html>

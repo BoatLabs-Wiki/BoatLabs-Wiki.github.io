@@ -1,7 +1,6 @@
 :root {
     --bg: #07110b;
     --panel: #0f1d15;
-    --panel-2: #14271f;
     --text: #f4fff7;
     --muted: #b7cfc0;
     --accent: #57f06b;
@@ -58,11 +57,6 @@ body {
 
 .page-intro {
     margin-top: 8px;
-}
-
-.page-intro p {
-    max-width: 720px;
-    margin: 0;
 }
 
 .hero {
@@ -129,58 +123,6 @@ body {
     border: 1px solid var(--border);
 }
 
-.hero-stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    margin-top: 24px;
-}
-
-.stat-box {
-    padding: 12px 14px;
-    border-radius: 14px;
-    background: rgba(255,255,255,0.05);
-    min-width: 120px;
-}
-
-.stat-box strong {
-    display: block;
-    color: var(--accent);
-    font-size: 1.1rem;
-}
-
-.panel-card {
-    padding: 20px;
-    border-radius: 20px;
-    background: linear-gradient(180deg, var(--panel-2), var(--panel));
-    border: 1px solid var(--border);
-}
-
-.panel-card h2 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 1.15rem;
-}
-
-.panel-card ul {
-    margin: 0;
-    padding-left: 18px;
-    color: var(--muted);
-}
-
-.panel-card a {
-    color: var(--accent);
-    text-decoration: none;
-}
-
-.panel-card a:hover {
-    text-decoration: underline;
-}
-
-.panel-card li + li {
-    margin-top: 8px;
-}
-
 .section {
     margin-top: 24px;
     padding: 28px;
@@ -191,39 +133,6 @@ body {
 
 .section-title {
     margin-bottom: 18px;
-}
-
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-}
-
-.info-card {
-    padding: 18px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, rgba(87,240,107,0.08), rgba(255,255,255,0.03));
-    border: 1px solid var(--border);
-}
-
-.info-card h3 {
-    margin-top: 0;
-    margin-bottom: 8px;
-}
-
-.minigames-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 12px;
-}
-
-.minigame-item {
-    padding: 16px;
-    border-radius: 12px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-weight: 600;
 }
 
 .game-rules {
@@ -239,6 +148,44 @@ body {
 .section h3 {
     color: var(--accent);
     margin-bottom: 10px;
+}
+
+.section h2 {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 0;
+}
+
+.section h2::after {
+    content: "\25BE";
+    color: var(--accent);
+    font-weight: 600;
+    flex-shrink: 0;
+    display: inline-block;
+    transition: transform 0.35s ease;
+}
+
+.section:not(.collapsed) h2::after {
+    transform: rotate(180deg);
+}
+
+.section-content {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.35s ease;
+}
+
+.section-content-inner {
+    overflow: hidden;
+    min-height: 0;
+}
+
+.section.collapsed .section-content {
+    grid-template-rows: 0fr;
 }
 
 pre {
@@ -262,6 +209,15 @@ code {
 
 .section p {
     color: var(--muted);
+}
+
+.section a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.section a:hover {
+    text-decoration: underline;
 }
 
 footer {
@@ -363,24 +319,6 @@ footer a:hover {
     color: #06210f;
 }
 
-.filter-bar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--muted);
-    font-size: 0.9rem;
-}
-
-.filter-bar select {
-    padding: 6px 12px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: var(--panel);
-    color: var(--text);
-    font-size: 0.9rem;
-    cursor: pointer;
-}
-
 .search-bar {
     margin-bottom: 16px;
 }
@@ -435,10 +373,6 @@ footer a:hover {
 
 @media (max-width: 900px) {
     .hero {
-        grid-template-columns: 1fr;
-    }
-
-    .info-grid {
         grid-template-columns: 1fr;
     }
 

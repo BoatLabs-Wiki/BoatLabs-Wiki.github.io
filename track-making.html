@@ -27,12 +27,14 @@
                 <li><a href="#locations">Track locations</a></li>
                 <li><a href="#settings">Track settings</a></li>
                 <li><a href="#boatutils">OpenBoatUtils</a></li>
+                <li><a href="#download-schematic">Downloading a schematic</a></li>
+                <li><a href="#upload-schematic">Uploading a schematic</a></li>
             </ul>
         </aside>
 
         <header>
             <div class="section-title">
-                <p class="eyebrow">Guides</p>
+                <p class="eyebrow">Guide</p>
                 <h1>Track making</h1>
             </div>
         </header>
@@ -44,6 +46,27 @@
                 <p>Before doing any of the track setup, run <code>/server build</code> and then <code>/p auto</code>.
                 </p>
                 <p>Once you are done building, you can start setting up your track.</p>
+            </section>
+
+            <section class="section">
+                <h2 id="download-schematic">Downloading a schematic from the server</h2>
+                <ol>
+                    <li>Select the region you want to download.</li>
+                    <li>Run <code>//copy</code>.</li>
+                    <li>Run <code>//download</code>.</li>
+                </ol>
+            </section>
+
+            <section class="section">
+                <h2 id="upload-schematic">Uploading a schematic</h2>
+                <ol>
+                    <li>Go to <a href="https://athion.net/fawe/index.php" target="_blank"
+                            rel="noopener noreferrer">https://athion.net/fawe/index.php</a> and upload the
+                        <code>.schem </code>file.
+                    </li>
+                    <li>Paste the command it gives you in Minecraft.</li>
+                    <li>Run <code>//paste</code>.</li>
+                </ol>
             </section>
 
             <section class="section">
@@ -135,13 +158,13 @@
             <section class="section">
                 <h2 id="settings">Track settings</h2>
                 <h3>Track Name</h3>
-                <pre><code>/te name [NEWNAME]</code></pre>
+                <pre><code>/te name &lt;newName&gt;</code></pre>
 
                 <h3>Track Owner</h3>
-                <pre><code>/te owner [PLAYER]</code></pre>
+                <pre><code>/te owner &lt;player&gt;</code></pre>
 
                 <h3>Track Contributors</h3>
-                <pre><code>/te contributors [PLAYER] [PLAYER] [PLAYER]</code></pre>
+                <pre><code>/te contributors &lt;player&gt; &lt;player&gt; &lt;player&gt;</code></pre>
 
                 <h3>Track Open/Close</h3>
                 <p>Open tracks allow anyone to use them; closed tracks are limited to admins.</p>
@@ -149,23 +172,31 @@
                 <pre><code>/te close</code></pre>
 
                 <h3>Time Trial</h3>
-                <pre><code>/te timetrial [enable|disable]</code></pre>
+                <pre><code>/te timetrial enable|disable</code></pre>
                 <p>Default value: <strong>enable</strong>.</p>
             </section>
 
             <section class="section">
                 <h2 id="boatutils">OpenBoatUtils</h2>
-                <p>A track can be assigned custom OpenBoatUtils settings. If the driver has the OpenBoatUtils mod, they
-                    receive a new mode set by the track. Use <code>/te boatutils [argument]</code>.</p>
-                <pre><code>/te boatutils</code></pre>
-                <pre><code>/te boatutils add/remove [group/setting]</code></pre>
+                <p>OpenBoatUtils is a mod that allows for customizing the boat physics. (Requires <a
+                        href="https://modrinth.com/mod/openboatutils" target="_blank"
+                        rel="noopener noreferrer">OpenBoatUtils</a> mod)</p>
+                <p>A track can be assigned custom OpenBoatUtils settings. That can be standalone settings of groups,
+                    which are a group of settings.</p>
+                <p>You can assign custom OpenBoatUtils settings/groups to a track using the following commands:</p>
+                <pre><code>/te boatutils add group|setting &lt;name&gt;</code></pre>
+                <p>To remove a settings/groups from a track using the following commands:</p>
+                <pre><code>/te boatutils remove &lt;index&gt;</code></pre>
+                <p>The index can be found using the <code>/t boatutils &lt;track_name&gt;</code> command. (This can also be run on main server)</p>
+                <p>And to reset the settings:</p>
                 <pre><code>/te boatutils reset</code></pre>
 
                 <h3>BoatUtils modifications</h3>
                 <p>Settings include acceleration, air control, step height, gravity, jump force, and more. Groups such
-                    as <code>air_stepping</code>, <code>blue_speed</code>, <code>parkour</code>, <code>rally</code>, and
-                    <code>step_up</code> can also be added.
+                    as <code>air_stepping</code>, <code>blue_speed</code>, <code>parkour</code>, <code>rally</code>,
+                    <code>step_up</code>.
                 </p>
+                <p>Also, remember that some settings may require other settings to be functional. For example, the setting <code>jumps</code> will require <code>jump_force</code> to work. That doesnt apply for groups.</p>
             </section>
         </main>
 
@@ -174,6 +205,37 @@
             © 2026 <a href="https://napsternpt.github.io/">NapsterNPT</a>. All rights reserved.
         </footer>
     </div>
+
+    <script>
+        document.querySelectorAll('section.section').forEach((section) => {
+            const title = section.querySelector('h2');
+            if (!title) return;
+
+            const inner = document.createElement('div');
+            inner.className = 'section-content-inner';
+            while (title.nextElementSibling) {
+                inner.appendChild(title.nextElementSibling);
+            }
+            const wrap = document.createElement('div');
+            wrap.className = 'section-content';
+            wrap.appendChild(inner);
+            section.appendChild(wrap);
+
+            section.classList.add('collapsed');
+            title.addEventListener('click', () => section.classList.toggle('collapsed'));
+        });
+
+        const expandFromHash = () => {
+            const id = window.location.hash.slice(1);
+            if (!id) return;
+            const title = document.getElementById(id);
+            if (title && title.tagName === 'H2') {
+                title.closest('section.section').classList.remove('collapsed');
+            }
+        };
+        window.addEventListener('hashchange', expandFromHash);
+        expandFromHash();
+    </script>
 </body>
 
 </html>
