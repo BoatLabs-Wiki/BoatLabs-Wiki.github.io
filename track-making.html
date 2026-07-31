@@ -204,7 +204,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td rowspan="6"><code>air_stepping</code></td>
+                            <td rowspan="6">air_stepping</td>
                             <td><code>fall_damage</code></td>
                             <td>false</td>
                         </tr>
@@ -229,12 +229,12 @@
                             <td>true</td>
                         </tr>
                         <tr>
-                            <td><code>blue_speed</code></td>
+                            <td>blue_speed</td>
                             <td><code>default_slipperiness</code></td>
                             <td>0.989</td>
                         </tr>
                         <tr>
-                            <td rowspan="2"><code>blue_speed_air</code></td>
+                            <td rowspan="2">blue_speed_air</td>
                             <td><code>air_control</code></td>
                             <td>true</td>
                         </tr>
@@ -243,7 +243,7 @@
                             <td>air: 0.989</td>
                         </tr>
                         <tr>
-                            <td rowspan="5"><code>parkour</code></td>
+                            <td rowspan="5">parkour</td>
                             <td><code>fall_damage</code></td>
                             <td>false</td>
                         </tr>
@@ -264,7 +264,7 @@
                             <td>0.5</td>
                         </tr>
                         <tr>
-                            <td rowspan="4"><code>rally</code></td>
+                            <td rowspan="4">rally</td>
                             <td><code>fall_damage</code></td>
                             <td>false</td>
                         </tr>
@@ -281,7 +281,7 @@
                             <td>1.25</td>
                         </tr>
                         <tr>
-                            <td rowspan="5"><code>step_up</code></td>
+                            <td rowspan="5">step_up</td>
                             <td><code>fall_damage</code></td>
                             <td>false</td>
                         </tr>
@@ -310,140 +310,179 @@
                     <thead>
                         <tr>
                             <th>Setting</th>
+                            <th>Description</th>
                             <th>Value type</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td><code>acceleration_stacking</code></td>
+                            <td>Lets turn-based forward acceleration stack with forward/backward acceleration.</td>
                             <td><code>toggle</code></td>
                         </tr>
                         <tr>
                             <td><code>air_control</code></td>
+                            <td>Boat moves in the air as if it were on the ground, using the slipperiness of
+                                <code>minecraft:air</code>.</td>
                             <td><code>toggle</code></td>
                         </tr>
                         <tr>
                             <td><code>air_stepping</code></td>
+                            <td>Allows the boat to step up when hitting a block's side while not touching the ground.</td>
                             <td><code>toggle</code></td>
                         </tr>
                         <tr>
                             <td><code>backward_acceleration</code></td>
+                            <td>Boat's acceleration when moving backward (vanilla <code>0.005</code>).</td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
                             <td><code>block_setting</code></td>
+                            <td>Sets a per-block setting for specific blocks, such as per-block jump force.</td>
                             <td><code>per-block setting</code></td>
                         </tr>
                         <tr>
                             <td><code>block_slipperiness</code></td>
+                            <td>Sets the slipperiness value for one or more specific blocks.</td>
                             <td><code>block, number</code></td>
                         </tr>
                         <tr>
                             <td><code>brake_slipperiness</code></td>
+                            <td>Scales the boat's velocity when pressing back instead of accelerating backward.</td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
                             <td><code>collision_resolution</code></td>
+                            <td>Collision resolution level (<code>1</code>–<code>50</code>) to avoid wrong corner collisions at
+                                high speed.</td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
                             <td><code>collisionmode</code></td>
+                            <td>How the boat collides with other entities: vanilla, no boats or players, no entities, etc.</td>
                             <td><code>type of collision (listed on auto-complete)</code></td>
                         </tr>
                         <tr>
                             <td><code>coyotetime</code></td>
+                            <td>Ticks where actions are still allowed after leaving the ground.</td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
                             <td><code>default_slipperiness</code></td>
+                            <td>Slipperiness for blocks without a specific value (vanilla <code>0.6</code>).</td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
                             <td><code>fall_damage</code></td>
+                            <td>Whether boats take fall damage and break after big falls.</td>
                             <td><code>toggle</code></td>
                         </tr>
                         <tr>
-                            <td><code>fix_number_water_elevation</code></td>
+                            <td><code>fix_double_water_elevation</code></td>
+                            <td>Enables the fix for the double water elevation behaviour.</td>
                             <td><code>toggle</code></td>
                         </tr>
                         <tr>
                             <td><code>forward_acceleration</code></td>
+                            <td>Boat's acceleration when moving forward (vanilla <code>0.04</code>).</td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
                             <td><code>gravity</code></td>
+                            <td>Strength of gravity applied to the boat (vanilla <code>-0.04</code>).</td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
                             <td><code>honey_compatibility</code></td>
+                            <td>Reverts honey behaviour on 1.21.3+ to 1.21.1, slowing the slide.</td>
                             <td><code>toggle</code></td>
                         </tr>
                         <tr>
                             <td><code>jump_force</code></td>
+                            <td>Force applied when the boat jumps (<code>0</code> = no jumping).</td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
                             <td><code>jumps</code></td>
+                            <td>Number of jumps available: <code>1</code> = single jump, <code>2</code> = double jump, etc.</td>
                             <td><code>number|infinite</code></td>
                         </tr>
                         <tr>
                             <td><code>lateral_slipperiness</code></td>
+                            <td>Extra grip opposing the current slip; <code>0</code> keeps the boat heading straight.</td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
                             <td><code>max_speed</code></td>
+                            <td>Threshold above which max speed resistance kicks in (negative disables it).</td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
                             <td><code>max_speed_resistance</code></td>
+                            <td>Scales velocity above max speed; <code>1</code> makes going faster than max speed impossible.
+                            </td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
                             <td><code>multi_stepping</code></td>
+                            <td>Allows multiple step-ups per tick instead of vanilla's single step.</td>
                             <td><code>toggle</code></td>
                         </tr>
                         <tr>
                             <td><code>scale</code></td>
+                            <td>Scale of the boat.</td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
                             <td><code>step_height</code></td>
+                            <td>How high the boat can step up blocks without jumping (vanilla <code>0</code>).</td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
                             <td><code>step_up_slipperiness</code></td>
+                            <td>Multiplies the boat's velocity whenever it steps up a block.</td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
                             <td><code>surface_water_control</code></td>
+                            <td>Boat control while on the surface of water.</td>
                             <td><code>toggle</code></td>
                         </tr>
                         <tr>
                             <td><code>swim_force</code></td>
+                            <td>Force applied when moving in water.</td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
                             <td><code>turning_forward_acceleration</code></td>
+                            <td>Forward acceleration when turning without pressing forward or backward (vanilla
+                                <code>0.005</code>).</td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
                             <td><code>underwater_control</code></td>
+                            <td>Boat control while fully underwater.</td>
                             <td><code>toggle</code></td>
                         </tr>
                         <tr>
                             <td><code>walltap_multiplier</code></td>
+                            <td>Velocity multiplier when hitting a wall; <code>1</code> bounces back 100% of your velocity.
+                            </td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
                             <td><code>water_elevation</code></td>
+                            <td>Boat rises in water streams until it reaches the top.</td>
                             <td><code>toggle</code></td>
                         </tr>
                         <tr>
                             <td><code>water_jumping</code></td>
+                            <td>Allows jumping while in water.</td>
                             <td><code>toggle</code></td>
                         </tr>
                         <tr>
                             <td><code>yaw_acceleration</code></td>
+                            <td>Boat's angular (turning) acceleration (vanilla <code>1.0</code>).</td>
                             <td><code>number</code></td>
                         </tr>
                     </tbody>
