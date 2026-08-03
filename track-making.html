@@ -25,10 +25,45 @@
                 <li><a href="#download-schematic">Downloading a schematic</a></li>
                 <li><a href="#upload-schematic">Uploading a schematic</a></li>
                 <li><a href="#setting-up">Setting up a track</a></li>
-                <li><a href="#regions">Creating regions</a></li>
-                <li><a href="#locations">Track locations</a></li>
-                <li><a href="#settings">Track settings</a></li>
-                <li><a href="#boatutils">OpenBoatUtils</a></li>
+                <li class="sidebar-sub">
+                    <a class="sidebar-parent" href="#regions">Creating regions</a>
+                    <ul class="sidebar-subs">
+                        <li><a href="#regions-selection">Making a selection</a></li>
+                        <li><a href="#region-types">Regions</a></li>
+                        <li><a href="#start-region">Start Region</a></li>
+                        <li><a href="#checkpoint-region">Checkpoint Region</a></li>
+                        <li><a href="#end-region">End Region</a></li>
+                        <li><a href="#pit-region">Pit Region</a></li>
+                        <li><a href="#inpit-region">Inpit Region</a></li>
+                        <li><a href="#reset-region">Reset Region</a></li>
+                    </ul>
+                </li>
+                <li class="sidebar-sub">
+                    <a class="sidebar-parent" href="#locations">Track locations</a>
+                    <ul class="sidebar-subs">
+                        <li><a href="#track-spawn">Track Spawn</a></li>
+                        <li><a href="#location-leaderboard">Leaderboard</a></li>
+                        <li><a href="#grid-location">Grid</a></li>
+                        <li><a href="#qualification-grid">Qualification Grid</a></li>
+                    </ul>
+                </li>
+                <li class="sidebar-sub">
+                    <a class="sidebar-parent" href="#settings">Track settings</a>
+                    <ul class="sidebar-subs">
+                        <li><a href="#track-name">Track Name</a></li>
+                        <li><a href="#track-owner">Track Owner</a></li>
+                        <li><a href="#track-contributors">Track Contributors</a></li>
+                        <li><a href="#track-open-close">Track Open/Close</a></li>
+                        <li><a href="#time-trial">Time Trial</a></li>
+                    </ul>
+                </li>
+                <li class="sidebar-sub">
+                    <a class="sidebar-parent" href="#boatutils">OpenBoatUtils</a>
+                    <ul class="sidebar-subs">
+                        <li><a href="#boatutils-groups">Groups</a></li>
+                        <li><a href="#boatutils-settings">Settings</a></li>
+                    </ul>
+                </li>
             </ul>
         </aside>
 
@@ -50,29 +85,25 @@
 
             <section class="section">
                 <h2 id="download-schematic">Downloading a schematic from the server</h2>
-                <ol>
-                    <li>Select the region you want to download.</li>
-                    <li>Run <code>//copy</code>.</li>
-                    <li>Run <code>//download</code>.</li>
-                </ol>
+                <p>Select the region you want to download.</p>
+                <p>Run <code>//copy</code>.</p>
+                <p>Run <code>//download</code>.</p>
             </section>
 
             <section class="section">
                 <h2 id="upload-schematic">Uploading a schematic</h2>
-                <ol>
-                    <li>Go to <a href="https://athion.net/fawe/index.php" target="_blank"
-                            rel="noopener noreferrer">https://athion.net/fawe/index.php</a> and upload the
-                        <code>.schem </code>file.
-                    </li>
-                    <li>Paste the command it gives you in Minecraft.</li>
-                    <li>Run <code>//paste</code>.</li>
-                </ol>
+                <p>Go to <a href="https://athion.net/fawe/index.php" target="_blank"
+                        rel="noopener noreferrer">https://athion.net/fawe/index.php</a> and upload the
+                    <code>.schem</code> file.
+                </p>
+                <p>Paste the command it gives you in Minecraft.</p>
+                <p>Run <code>//paste</code>.</p>
             </section>
 
             <section class="section">
                 <h2 id="setting-up">Setting up a track</h2>
-                <p>To create a track, use the track create command. In this guide, <code>/te</code> are used as
-                    shortcuts for <code>/trackedit</code>.</p>
+                <p>To create a track, use the track create command. In this guide, <code>/te</code> is used as a
+                    shortcut for <code>/trackedit</code>.</p>
                 <pre><code>/te create &lt;track_name&gt;</code></pre>
                 <p>When you run this command, your current position and rotation become the track spawn, and the item
                     you are holding becomes the TT menu item. If you are not holding an item, a default one is given.
@@ -82,23 +113,24 @@
                     selected track, use <code>/te</code>.</p>
             </section>
 
-            <section class="section">
+            <section class="section compress-subs">
                 <h2 id="regions">Creating regions</h2>
                 <p>After creating a track, start adding regions. Tracks in TimingSystem are built from different region
                     types, and mistakes can lead to a poor driving experience. A usable track needs at least one start
                     region and one checkpoint.</p>
 
-                <h3>Making a selection</h3>
+                <h3 id="regions-selection">Making a selection</h3>
                 <p>Use WorldEdit selections to define regions. Run <code>//wand</code> and select a cuboid region with
                     left/right clicks. Poly selections are also supported.</p>
-                <p><strong>Make sure your selection is always one block deep into the ground and at least one block
-                        above the ground.</strong> If you are planning on having boat step-ups with BoatUtils, create
-                    regions several blocks into the air.</p>
-                <p><strong>Small regions may be passed before the server recognizes a player entry, so make them large
-                        enough, especially on high-speed straights.</strong></p>
-                <p>Example: a region selection should be wide enough to safely register entry and exit.</p>
 
-                <h3>Regions</h3>
+                <div class="warning">Make sure your selection is at least one block deep into the ground and at least
+                    one block above the ground.
+                    If you are planning on having boat step-ups with OpenBoatUtils, create
+                    regions several blocks into the air.
+                    Small regions may be passed before the server recognizes a player entry, so make a region selection
+                    wide enough to safely register entry and exit.</div>
+
+                <h3 id="region-types">Regions</h3>
                 <p>Regions use an optional <code>&lt;index&gt;</code> argument, allowing multiple regions of the same
                     type.
                     Add a <code>-</code> before the index to remove a region (for example, <code>-2</code> or
@@ -108,30 +140,31 @@
                     <code>/te regions</code> to list them, and click the region name to teleport to its saved spawn.
                 </p>
 
-                <h3>Start Region</h3>
+                <h3 id="start-region">Start Region</h3>
                 <p>A start region defines where a player's timer should start. If no end region is defined, it also ends
                     the player's time.</p>
                 <pre><code>/te region start &lt;index&gt;</code></pre>
 
-                <h3>Checkpoint Region</h3>
+                <h3 id="checkpoint-region">Checkpoint Region</h3>
                 <p>Players must pass all checkpoints before finishing. Checkpoints prevent skipping parts of the track
                     and are used to calculate race time deltas.</p>
                 <pre><code>/te region checkpoint &lt;index&gt;</code></pre>
 
-                <h3>End Region</h3>
+                <div class="warning">If the track is a race track, make the checkpoint white on the ground and facing
+                    in the direction of travel, to avoid weird respawns.</div>
+
+                <h3 id="end-region">End Region</h3>
                 <p>An end region finishes a player's time.</p>
                 <pre><code>/te region end &lt;index&gt;</code></pre>
-                <p><strong>If the track is a circuit, do not set an end region.</strong></p>
+                <div class="warning">If the track is a circuit, do NOT set an end region.</div>
 
-                <h3>Pit Region</h3>
+                <h3 id="pit-region">Pit Region</h3>
                 <pre><code>/te region pit &lt;index&gt;</code></pre>
 
-                <h3>Inpit Region</h3>
+                <h3 id="inpit-region">Inpit Region</h3>
                 <pre><code>/te region inpit &lt;index&gt;</code></pre>
 
-                <h3>Reset Region</h3>
-                <p>A reset region teleports a player to the last checkpoint or the spawn location during a time trial.
-                </p>
+                <h3 id="reset-region">Reset Region</h3>
                 <pre><code>/te region reset &lt;index&gt;</code></pre>
             </section>
 
@@ -142,36 +175,38 @@
                 </p>
                 <p>Use <code>/te locations</code> to list all locations and teleport to them.</p>
 
-                <h3>Track Spawn</h3>
+                <h3 id="track-spawn">Track Spawn</h3>
                 <pre><code>/te spawn</code></pre>
 
-                <h3>Leaderboard</h3>
+                <h3 id="location-leaderboard">Leaderboard</h3>
                 <pre><code>/te location leaderboard &lt;index&gt;</code></pre>
 
-                <h3>Grid</h3>
+                <h3 id="grid-location">Grid</h3>
                 <pre><code>/te location grid &lt;index&gt;</code></pre>
 
-                <h3>Qualification Grid</h3>
+                <h3 id="qualification-grid">Qualification Grid</h3>
                 <pre><code>/te location qualygrid &lt;index&gt;</code></pre>
             </section>
 
-            <section class="section">
+            <section class="section no-compress">
                 <h2 id="settings">Track settings</h2>
-                <h3>Track Name</h3>
+                <h3 id="track-name">Track Name</h3>
                 <pre><code>/te name &lt;newName&gt;</code></pre>
 
-                <h3>Track Owner</h3>
+                <h3 id="track-owner">Track Owner</h3>
                 <pre><code>/te owner &lt;player&gt;</code></pre>
+                <div class="tip">Since there isn't a way to make more people set up the track at the same time, giving a
+                    player temporary owner access is a solution.</div>
 
-                <h3>Track Contributors</h3>
+                <h3 id="track-contributors">Track Contributors</h3>
                 <pre><code>/te contributors &lt;player&gt; &lt;player&gt; &lt;player&gt;</code></pre>
 
-                <h3>Track Open/Close</h3>
+                <h3 id="track-open-close">Track Open/Close</h3>
                 <p>Open tracks allow anyone to use them; closed tracks are limited to admins.</p>
                 <pre><code>/te open</code></pre>
                 <pre><code>/te close</code></pre>
 
-                <h3>Time Trial</h3>
+                <h3 id="time-trial">Time Trial</h3>
                 <pre><code>/te timetrial enable|disable</code></pre>
                 <p>Default value: <strong>enable</strong>.</p>
             </section>
@@ -181,18 +216,18 @@
                 <p>OpenBoatUtils is a mod that allows for customizing the boat physics. (Requires <a
                         href="https://modrinth.com/mod/openboatutils" target="_blank"
                         rel="noopener noreferrer">OpenBoatUtils</a> mod)</p>
-                <p>A track can be assigned custom OpenBoatUtils settings. That can be standalone settings of groups,
-                    which are a group of settings.</p>
+                <p>A track can be assigned custom OpenBoatUtils settings. These can be standalone settings or groups,
+                    where a group is a collection of settings.</p>
                 <p>You can assign custom OpenBoatUtils settings/groups to a track using the following commands:</p>
                 <pre><code>/te boatutils add setting|group &lt;name&gt;</code></pre>
-                <p>To remove a setting|group from a track using the following commands:</p>
+                <p>To remove a setting|group from a track, use the following command:</p>
                 <pre><code>/te boatutils remove &lt;index&gt;</code></pre>
                 <p>The index can be found using the <code>/t boatutils &lt;track_name&gt;</code> command. (This can also
-                    be run on main server)</p>
+                    be run on the main server.)</p>
                 <p>And to reset the settings:</p>
                 <pre><code>/te boatutils reset</code></pre>
 
-                <h3 class="collapsible-sub">Groups</h3>
+                <h3 class="collapsible-sub" id="boatutils-groups">Groups</h3>
                 <p>Pre-made groups of settings that can be added to a track in one go.</p>
                 <table class="data-table">
                     <thead>
@@ -304,7 +339,7 @@
                     </tbody>
                 </table>
 
-                <h3 class="collapsible-sub">Settings</h3>
+                <h3 class="collapsible-sub" id="boatutils-settings">Settings</h3>
                 <p>Individual settings that can be added to a track one at a time.</p>
                 <table class="data-table">
                     <thead>
@@ -323,12 +358,14 @@
                         <tr>
                             <td><code>air_control</code></td>
                             <td>Boat moves in the air as if it were on the ground, using the slipperiness of
-                                <code>minecraft:air</code>.</td>
+                                <code>minecraft:air</code>.
+                            </td>
                             <td><code>toggle</code></td>
                         </tr>
                         <tr>
                             <td><code>air_stepping</code></td>
-                            <td>Allows the boat to step up when hitting a block's side while not touching the ground.</td>
+                            <td>Allows the boat to step up when hitting a block's side while not touching the ground.
+                            </td>
                             <td><code>toggle</code></td>
                         </tr>
                         <tr>
@@ -353,13 +390,15 @@
                         </tr>
                         <tr>
                             <td><code>collision_resolution</code></td>
-                            <td>Collision resolution level (<code>1</code>–<code>50</code>) to avoid wrong corner collisions at
+                            <td>Collision resolution level (<code>1</code>–<code>50</code>) to avoid wrong corner
+                                collisions at
                                 high speed.</td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
                             <td><code>collisionmode</code></td>
-                            <td>How the boat collides with other entities: vanilla, no boats or players, no entities, etc.</td>
+                            <td>How the boat collides with other entities: vanilla, no boats or players, no entities,
+                                etc.</td>
                             <td><code>type of collision (listed on auto-complete)</code></td>
                         </tr>
                         <tr>
@@ -404,12 +443,14 @@
                         </tr>
                         <tr>
                             <td><code>jumps</code></td>
-                            <td>Number of jumps available: <code>1</code> = single jump, <code>2</code> = double jump, etc.</td>
+                            <td>Number of jumps available: <code>1</code> = single jump, <code>2</code> = double jump,
+                                etc.</td>
                             <td><code>number|infinite</code></td>
                         </tr>
                         <tr>
                             <td><code>lateral_slipperiness</code></td>
-                            <td>Extra grip opposing the current slip; <code>0</code> keeps the boat heading straight.</td>
+                            <td>Extra grip opposing the current slip; <code>0</code> keeps the boat heading straight.
+                            </td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
@@ -419,7 +460,8 @@
                         </tr>
                         <tr>
                             <td><code>max_speed_resistance</code></td>
-                            <td>Scales velocity above max speed; <code>1</code> makes going faster than max speed impossible.
+                            <td>Scales velocity above max speed; <code>1</code> makes going faster than max speed
+                                impossible.
                             </td>
                             <td><code>number</code></td>
                         </tr>
@@ -456,7 +498,8 @@
                         <tr>
                             <td><code>turning_forward_acceleration</code></td>
                             <td>Forward acceleration when turning without pressing forward or backward (vanilla
-                                <code>0.005</code>).</td>
+                                <code>0.005</code>).
+                            </td>
                             <td><code>number</code></td>
                         </tr>
                         <tr>
@@ -466,7 +509,8 @@
                         </tr>
                         <tr>
                             <td><code>walltap_multiplier</code></td>
-                            <td>Velocity multiplier when hitting a wall; <code>1</code> bounces back 100% of your velocity.
+                            <td>Velocity multiplier when hitting a wall; <code>1</code> bounces back 100% of your
+                                velocity.
                             </td>
                             <td><code>number</code></td>
                         </tr>
@@ -514,35 +558,53 @@
             section.classList.add('collapsed');
             title.addEventListener('click', () => section.classList.toggle('collapsed'));
 
-            inner.querySelectorAll('h3.collapsible-sub').forEach((subTitle) => {
-                const subInner = document.createElement('div');
-                subInner.className = 'section-content-inner';
-                let node = subTitle.nextElementSibling;
-                while (node && node.tagName !== 'H3') {
-                    const next = node.nextElementSibling;
-                    subInner.appendChild(node);
-                    node = next;
-                }
-                const subWrap = document.createElement('div');
-                subWrap.className = 'section-content collapsed';
-                subWrap.appendChild(subInner);
-                subTitle.after(subWrap);
+            const subTitles = inner.querySelectorAll('h3');
+            if (subTitles.length > 1 && !section.classList.contains('no-compress')) {
+                subTitles.forEach((subTitle) => {
+                    let node = subTitle.nextElementSibling;
+                    const siblings = [];
+                    while (node && node.tagName !== 'H3') {
+                        siblings.push(node);
+                        node = node.nextElementSibling;
+                    }
+                    if (siblings.length === 1 && !section.classList.contains('compress-subs')) return;
 
-                subTitle.classList.add('collapsed');
-                subTitle.addEventListener('click', () => subTitle.classList.toggle('collapsed'));
-            });
+                    const subInner = document.createElement('div');
+                    subInner.className = 'section-content-inner';
+                    siblings.forEach((s) => subInner.appendChild(s));
+                    const subWrap = document.createElement('div');
+                    subWrap.className = 'section-content collapsed';
+                    subWrap.appendChild(subInner);
+                    subTitle.after(subWrap);
+
+                    subTitle.classList.add('collapsible-sub', 'collapsed');
+                    subTitle.addEventListener('click', () => subTitle.classList.toggle('collapsed'));
+                });
+            }
         });
 
         const expandFromHash = () => {
             const id = window.location.hash.slice(1);
             if (!id) return;
-            const title = document.getElementById(id);
-            if (title && title.tagName === 'H2') {
-                title.closest('section.section').classList.remove('collapsed');
+            const el = document.getElementById(id);
+            if (!el) return;
+            const section = el.closest('section.section');
+            if (!section) return;
+            section.classList.remove('collapsed');
+            if (el.tagName === 'H3') {
+                el.classList.remove('collapsed');
             }
         };
         window.addEventListener('hashchange', expandFromHash);
         expandFromHash();
+
+        document.querySelectorAll('.sidebar-sub').forEach((item) => {
+            const parent = item.querySelector('.sidebar-parent');
+            if (!parent) return;
+            parent.addEventListener('click', () => {
+                item.classList.toggle('open');
+            });
+        });
     </script>
 </body>
 
